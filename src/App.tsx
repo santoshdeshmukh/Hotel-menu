@@ -64,7 +64,7 @@ const MENU_DATA: MenuItem[] = [
   {
     id: '1',
     name: 'Veg Thali / वेज थाळी',
-    description: 'A complete balanced meal. Contains dal tadka, jeera rice, two seasonal veg curries, handmade rotis, papad, and a sweet dish.',
+    description: 'होटल की सबसे बेहतरीन शाकाहारी थाळी। Contains dal, rice, 2 veg preparations, roti, and sweet.',
     price: 250,
     category: 'Veg Dishes',
     image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=800&auto=format&fit=crop',
@@ -73,7 +73,7 @@ const MENU_DATA: MenuItem[] = [
   {
     id: '2',
     name: 'Paneer Bomb / पनीर बम',
-    description: 'Crispy fried golden paneer balls stuffed with a secret spicy mixture and melting cheese center.',
+    description: 'स्पेशल पनीर बम डिश। Crispy fried paneer balls stuffed with spicy filling.',
     price: 160,
     category: 'Veg Starters',
     image: 'https://images.unsplash.com/photo-1567188040759-fbcd188398d8?q=80&w=800&auto=format&fit=crop',
@@ -82,7 +82,7 @@ const MENU_DATA: MenuItem[] = [
   {
     id: '3',
     name: 'Paneer Maratha / पनीर मराठा',
-    description: 'Bold and spicy paneer chunks cooked in a rich, tangy Maharashtrian style gravy with special Maratha spices.',
+    description: 'मसालेदार पनीर मराठा। Spicy and rich paneer curry with Maharashtrian spices.',
     price: 200,
     category: 'Veg Dishes',
     image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?q=80&w=800&auto=format&fit=crop',
@@ -90,35 +90,35 @@ const MENU_DATA: MenuItem[] = [
   },
   {
     id: '4',
-    name: 'Butter Chicken / बटर चिकन',
-    description: 'Tender chicken pieces simmered in a velvety tomato and butter gravy, mildly spiced with aromatic herbs.',
-    price: 280,
-    category: 'Chicken Specials',
-    image: 'https://images.unsplash.com/photo-1603894584107-74070a255957?q=80&w=800&auto=format&fit=crop',
-    isVeg: false
+    name: 'Paneer Tikka Masala / पनीर टिक्का मसाला',
+    description: 'तंदूरी ग्रिल पनीर टिक्का। Grilled paneer chunks in a creamy tomato gravy.',
+    price: 220,
+    category: 'Veg Dishes',
+    image: 'https://images.unsplash.com/photo-1596797038530-2c39fa81b487?q=80&w=800&auto=format&fit=crop',
+    isVeg: true
   },
   {
     id: '5',
     name: 'Chicken Thali / चिकन थाळी',
-    description: 'Traditional Maratha style chicken curry, served with spicy rassa, bhakri/roti, jeera rice, and salad.',
+    description: 'Traditional Maharashtrian chicken thali with rassa, bhakri, and rice.',
     price: 350,
-    category: 'Chicken Specials',
+    category: 'Non-Veg Starters', // Actually a thali but categories can be fluid
     image: 'https://images.unsplash.com/photo-1626777553732-48f84446b771?q=80&w=800&auto=format&fit=crop',
     isVeg: false
   },
   {
     id: '6',
-    name: 'Jeera Rice / जिरा राइस',
-    description: 'Long grain basmati rice tossed in clarified butter with cumin seeds and fresh coriander.',
-    price: 120,
-    category: 'Rice',
-    image: 'https://images.unsplash.com/photo-1512058560366-cd242d4532be?q=80&w=800&auto=format&fit=crop',
+    name: 'Lasun Methi / लसूण मेथी',
+    description: 'Creamy garlic infused fenugreek leaves preparation.',
+    price: 150,
+    category: 'Veg Dishes',
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop',
     isVeg: true
   },
   {
     id: '7',
     name: 'Mutton Handi / मटण हांडी',
-    description: 'Succulent mutton slow-cooked in a traditional handi with hand-ground spices for an authentic rustic flavor.',
+    description: 'Slow cooked mutton in a traditional clay pot style.',
     price: 450,
     category: 'Mutton Specials',
     image: 'https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800&auto=format&fit=crop',
@@ -126,30 +126,12 @@ const MENU_DATA: MenuItem[] = [
   },
   {
     id: '8',
-    name: 'Surmai Fry / सुरमई फ्राय',
-    description: 'King Fish steaks marinated in Malvani coastal spices and deep-fried to a perfect golden crisp.',
-    price: 380,
+    name: 'Fish Fry / फिश फ्राय',
+    description: 'Crispy fried fish with malvani masala coating.',
+    price: 300,
     category: 'Fish',
     image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=800&auto=format&fit=crop',
     isVeg: false
-  },
-  {
-    id: '9',
-    name: 'Butter Naan / बटर नान',
-    description: 'Traditional clay oven baked leavened bread, brushed with premium quality butter.',
-    price: 40,
-    category: 'Roti & Breads',
-    image: 'https://images.unsplash.com/photo-1601050638917-3606f20947ba?q=80&w=800&auto=format&fit=crop',
-    isVeg: true
-  },
-  {
-    id: '10',
-    name: 'Gulab Jamun / गुलाब जामुन',
-    description: 'Two pieces of soft khoya balls deep-fried and soaked in flavored sugar syrup.',
-    price: 60,
-    category: 'Drinks & Sweets',
-    image: 'https://images.unsplash.com/photo-1601132334824-2bb7ca4663b1?q=80&w=800&auto=format&fit=crop',
-    isVeg: true
   }
 ];
 
@@ -419,11 +401,9 @@ export default function App() {
               <motion.div
                 layout
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                whileTap={{ scale: 0.98 }}
                 className="group flex flex-col bg-white rounded-[2rem] overflow-hidden border-2 border-transparent hover:border-orange-500 shadow-sm hover:shadow-2xl transition-all duration-300 transform"
                 id={`product-${item.id}`}
               >
@@ -432,7 +412,7 @@ export default function App() {
                   <img 
                     src={item.image} 
                     alt={item.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-3 left-3">
