@@ -16,7 +16,9 @@ import {
   Utensils, 
   Trash2,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  Instagram,
+  Facebook
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -162,6 +164,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [deliveryType, setDeliveryType] = useState<DeliveryType>(DeliveryType.RESTAURANT);
   const [tableNumber, setTableNumber] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
   const [vegFilter, setVegFilter] = useState<'all' | 'veg' | 'non-veg'>('all');
 
   // Filter Logic
@@ -218,12 +221,19 @@ export default function App() {
       alert("Please enter a table number");
       return;
     }
+    if (deliveryType === DeliveryType.HOME_DELIVERY && !deliveryAddress) {
+      alert("Please enter a delivery address");
+      return;
+    }
 
-    let message = `*New Order from Lucky Bar & Restaurant*\n`;
+    let message = `*New Order from Anand Bar & Restro*\n`;
     message += `--------------------------\n`;
     message += `*Type:* ${deliveryType}\n`;
     if (deliveryType === DeliveryType.RESTAURANT) {
       message += `*Table No:* ${tableNumber}\n`;
+    }
+    if (deliveryType === DeliveryType.HOME_DELIVERY) {
+      message += `*Address:* ${deliveryAddress}\n`;
     }
     message += `--------------------------\n`;
     
@@ -250,7 +260,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-2xl font-black uppercase tracking-tighter text-slate-900 leading-none">
-                Lucky <span className="text-orange-500">Bar & Resto</span>
+                Anand <span className="text-orange-500">Bar & Restro</span>
               </h1>
               <div className="flex items-center gap-2 mt-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
@@ -266,7 +276,7 @@ export default function App() {
             </div>
             <div className="flex items-center gap-2 hover:text-orange-500 transition-colors cursor-default">
               <MapPin size={14} className="text-orange-500" />
-              <span>Zirpur, Maharashtra</span>
+              <span>Jintur, Maharastra 431509.</span>
             </div>
           </div>
 
@@ -461,8 +471,8 @@ export default function App() {
               L
             </div>
             <div className="text-center md:text-left">
-              <h2 className="text-2xl font-black uppercase tracking-tighter">Lucky Bar & Restaurant</h2>
-              <p className="text-orange-500 text-xs font-bold uppercase tracking-[0.3em] mt-1">Direct from Zirpur</p>
+              <h2 className="text-2xl font-black uppercase tracking-tighter">Anand Bar & Restro</h2>
+              <p className="text-orange-500 text-xs font-bold uppercase tracking-[0.3em] mt-1">Direct from Jintur</p>
             </div>
           </div>
 
@@ -471,9 +481,11 @@ export default function App() {
             Fast table service guaranteed.
           </div>
 
-          <div className="flex gap-6">
-            <button className="w-12 h-12 bg-white/5 hover:bg-orange-500 rounded-2xl flex items-center justify-center transition-all text-white"><Phone size={20} /></button>
-            <button className="w-12 h-12 bg-white/5 hover:bg-orange-500 rounded-2xl flex items-center justify-center transition-all text-white"><MapPin size={20} /></button>
+          <div className="flex gap-4">
+            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Call Us"><Phone size={18} /></button>
+            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Visit Us"><MapPin size={18} /></button>
+            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Instagram"><Instagram size={18} /></button>
+            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Facebook"><Facebook size={18} /></button>
           </div>
         </div>
         <div className="mt-16 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 border-t border-white/5 pt-8">
@@ -583,6 +595,22 @@ export default function App() {
                           />
                         </motion.div>
                       )}
+
+                      {deliveryType === DeliveryType.HOME_DELIVERY && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="pt-2"
+                        >
+                          <textarea 
+                            placeholder="Enter Delivery Address (e.g. House No, Area...)"
+                            value={deliveryAddress}
+                            onChange={(e) => setDeliveryAddress(e.target.value)}
+                            rows={3}
+                            className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 font-semibold text-slate-900 focus:outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 placeholder:text-slate-300 placeholder:uppercase placeholder:text-xs resize-none"
+                          />
+                        </motion.div>
+                      )}
                     </div>
 
                     {/* Items */}
@@ -638,16 +666,20 @@ export default function App() {
                 </div>
 
                 <button
-                  disabled={cart.length === 0 || (deliveryType === DeliveryType.RESTAURANT && !tableNumber)}
+                  disabled={cart.length === 0 || (deliveryType === DeliveryType.RESTAURANT && !tableNumber) || (deliveryType === DeliveryType.HOME_DELIVERY && !deliveryAddress)}
                   onClick={sendOrder}
                   className={`w-full group flex items-center justify-center gap-4 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest transition-all ${
-                    cart.length > 0 && !(deliveryType === DeliveryType.RESTAURANT && !tableNumber)
+                    cart.length > 0 && !(deliveryType === DeliveryType.RESTAURANT && !tableNumber) && !(deliveryType === DeliveryType.HOME_DELIVERY && !deliveryAddress)
                       ? 'bg-green-500 text-white shadow-2xl shadow-green-500/20 hover:bg-green-600 hover:-translate-y-1'
                       : 'bg-slate-200 text-slate-400 cursor-not-allowed uppercase'
                   }`}
                 >
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82s.134.079.353.188c1.511.753 3.197 1.15 4.931 1.152 5.587 0 10.133-4.546 10.135-10.131.002-5.412-4.486-9.814-9.892-9.814-5.411 0-9.815 4.403-9.817 9.815-.001 1.78.483 3.513 1.399 5.012.115.187.234.341.234.341l-.929 3.393 3.486-.96z"/></svg>
-                  {deliveryType === DeliveryType.RESTAURANT && !tableNumber ? 'Awaiting Table No.' : 'Order via WhatsApp'}
+                  {deliveryType === DeliveryType.RESTAURANT && !tableNumber 
+                    ? 'Awaiting Table No.' 
+                    : (deliveryType === DeliveryType.HOME_DELIVERY && !deliveryAddress 
+                      ? 'Awaiting Address' 
+                      : 'Order via WhatsApp')}
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <p className="text-[10px] text-center mt-6 text-slate-400 font-black uppercase tracking-[0.3em]">
