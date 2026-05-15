@@ -482,14 +482,31 @@ export default function App() {
           </div>
 
           <div className="flex gap-4">
-            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Call Us"><Phone size={18} /></button>
-            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Visit Us"><MapPin size={18} /></button>
-            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Instagram"><Instagram size={18} /></button>
-            <button className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" aria-label="Facebook"><Facebook size={18} /></button>
+            <button 
+              onClick={() => window.open('tel:9284094805', '_self')}
+              className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" 
+              aria-label="Call Us"
+            >
+              <Phone size={18} />
+            </button>
+            <button 
+              onClick={() => window.open('https://instagram.com', '_blank')}
+              className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" 
+              aria-label="Instagram"
+            >
+              <Instagram size={18} />
+            </button>
+            <button 
+              onClick={() => window.open('https://facebook.com', '_blank')}
+              className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" 
+              aria-label="Facebook"
+            >
+              <Facebook size={18} />
+            </button>
           </div>
         </div>
         <div className="mt-16 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 border-t border-white/5 pt-8">
-          © 2024 LUXURY RESTO INTERFACE • ALL RIGHTS RESERVED
+          Powered by Santosh Deshmukh
         </div>
       </footer>
 
