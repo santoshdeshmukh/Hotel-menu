@@ -18,9 +18,11 @@ import {
   CheckCircle2,
   ArrowRight,
   Instagram,
-  Facebook
+  Facebook,
+  QrCode
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { QRCodeSVG } from 'qrcode.react';
 
 // --- Types ---
 
@@ -162,10 +164,21 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
   const [deliveryType, setDeliveryType] = useState<DeliveryType>(DeliveryType.RESTAURANT);
   const [tableNumber, setTableNumber] = useState("");
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [vegFilter, setVegFilter] = useState<'all' | 'veg' | 'non-veg'>('all');
+
+  // URL Parameter Detection for Table Number
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const table = params.get('table');
+    if (table) {
+      setTableNumber(table);
+      setDeliveryType(DeliveryType.RESTAURANT);
+    }
+  }, []);
 
   // Filter Logic
   const filteredMenu = useMemo(() => {
@@ -503,12 +516,65 @@ export default function App() {
             >
               <Facebook size={18} />
             </button>
+            <button 
+              onClick={() => setIsQrModalOpen(true)}
+              className="w-10 h-10 bg-white/5 hover:bg-orange-500 rounded-xl flex items-center justify-center transition-all text-white" 
+              aria-label="Generate QR Codes"
+            >
+              <QrCode size={18} />
+            </button>
           </div>
         </div>
         <div className="mt-16 text-center text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 border-t border-white/5 pt-8">
           Powered by Santosh Deshmukh
         </div>
       </footer>
+
+      {/* --- QR Code Generator Modal --- */}
+      <AnimatePresence>
+        {isQrModalOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsQrModalOpen(false)}
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="fixed inset-0 m-auto w-full max-w-4xl h-fit max-h-[90vh] bg-white z-[60] rounded-[2.5rem] p-8 md:p-12 overflow-y-auto shadow-2xl"
+            >
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-3xl font-black uppercase tracking-tighter text-slate-900">Table QR Codes</h2>
+                  <p className="text-sm font-medium text-slate-500 mt-1">Print these and place them on your tables</p>
+                </div>
+                <button onClick={() => setIsQrModalOpen(false)} className="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-slate-200 rounded-2xl transition-all">
+                  <X size={24} />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => {
+                  const url = `${window.location.origin}${window.location.pathname}?table=${num}`;
+                  return (
+                    <div key={num} className="p-6 border-2 border-slate-100 rounded-3xl flex flex-col items-center bg-slate-50 hover:border-orange-200 transition-all">
+                      <div className="bg-white p-4 rounded-2xl shadow-sm mb-4">
+                        <QRCodeSVG value={url} size={100} />
+                      </div>
+                      <span className="text-sm font-black uppercase tracking-widest text-slate-900">Table {num}</span>
+                      <p className="text-[10px] text-slate-400 font-bold mt-1">Scan to Order</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* --- Floating Cart Notification --- */}
       <AnimatePresence>
